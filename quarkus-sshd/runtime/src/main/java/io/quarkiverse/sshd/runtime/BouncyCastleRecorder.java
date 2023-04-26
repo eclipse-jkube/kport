@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.eclipse.jkube.transporter.nativemode;
+package io.quarkiverse.sshd.runtime;
 
 import java.security.Provider;
 import java.security.Security;
@@ -22,14 +22,16 @@ import java.util.List;
 
 import javax.crypto.Cipher;
 
-import io.quarkus.runtime.ShutdownContext;
-import io.quarkus.runtime.annotations.Recorder;
-import io.quarkus.security.runtime.SecurityProviderUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jboss.logging.Logger;
 
+import io.quarkus.runtime.ShutdownContext;
+import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.security.runtime.SecurityProviderUtils;
+
 /**
- * Copied from https://github.com/apache/camel-quarkus/blob/main/extensions-support/bouncycastle/runtime/src/main/java/org/apache/camel/quarkus/support/bouncycastle/BouncyCastleRecorder.java
+ * Copied from
+ * https://github.com/apache/camel-quarkus/blob/main/extensions-support/bouncycastle/runtime/src/main/java/org/apache/camel/quarkus/support/bouncycastle/BouncyCastleRecorder.java
  */
 @Recorder
 public class BouncyCastleRecorder {

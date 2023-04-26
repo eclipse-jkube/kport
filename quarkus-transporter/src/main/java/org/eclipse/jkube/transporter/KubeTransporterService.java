@@ -53,7 +53,7 @@ public class KubeTransporterService {
             }
 
         } catch (InterruptedException | ExecutionException e) {
-            logger.error("An error occured while running the Kube transporter", e);
+            logger.error("An error occured while running the Kube transporter. " + e.getMessage(), e);
             Thread.currentThread().interrupt();
         }
 

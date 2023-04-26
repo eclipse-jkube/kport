@@ -25,19 +25,12 @@
       <artifactId>jkube-kit-remote-dev</artifactId>
     </dependency>
 
-    <!-- to be replaced with proper class to fix native compilation -->
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-security</artifactId>
+      <groupId>io.quarkiverse.sshd</groupId>
+      <artifactId>quarkus-sshd</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk18on</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcpkix-jdk18on</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>

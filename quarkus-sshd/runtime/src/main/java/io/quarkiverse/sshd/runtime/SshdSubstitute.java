@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.eclipse.jkube.transporter.nativemode;
+package io.quarkiverse.sshd.runtime;
 
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
@@ -25,8 +25,10 @@ import org.apache.sshd.common.util.security.SecurityUtils;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+
 /**
- * Copied from https://github.com/apache/camel-quarkus/blob/main/extensions/ssh/runtime/src/main/java/org/apache/camel/quarkus/component/ssh/runtime/SubstituteSecurityUtils.java
+ * Copied from
+ * https://github.com/apache/camel-quarkus/blob/main/extensions/ssh/runtime/src/main/java/org/apache/camel/quarkus/component/ssh/runtime/SubstituteSecurityUtils.java
  */
 @TargetClass(SecurityUtils.class)
 final class SshdSubstitute {
