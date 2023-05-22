@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.jkube.kit.remotedev.RemoteDevelopmentConfig;
-import org.eclipse.jkube.kit.remotedev.RemoteDevelopmentService;
 import org.eclipse.jkube.transporter.KubeTransporterService;
 
 @Path("/")

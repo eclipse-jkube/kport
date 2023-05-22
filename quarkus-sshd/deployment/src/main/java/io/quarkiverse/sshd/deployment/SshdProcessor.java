@@ -36,7 +36,7 @@ class SshdProcessor {
                         KeyAgreement.class,
                         KeyFactory.class,
                         Signature.class,
-                        Mac.class).methods(false).build());
+                        Mac.class).methods(true).build());
         reflectiveClasses.produce(
                 ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).build());
     }

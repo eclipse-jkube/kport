@@ -10,7 +10,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>quarkus-sshd</artifactId>
-  <name>Quarkus Apache sshd Quarkus extention - Runtime</name>
+  <name>Quarkus Apache sshd Quarkus extension - Runtime</name>
   <description>extension for apache sshd</description>
   <dependencies>
     <dependency>

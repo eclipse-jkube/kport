@@ -7,49 +7,5 @@
       "allPublicMethods" : true,
       "allDeclaredFields" : true,
       "allPublicFields" : true
-    },
-    {
-      "name" : "java.security.KeyPairGenerator",
-      "allDeclaredConstructors" : true,
-      "allPublicConstructors" : true,
-      "allDeclaredMethods" : true,
-      "allPublicMethods" : true,
-      "allDeclaredFields" : true,
-      "allPublicFields" : true
-    },
-    {
-      "name" : "javax.crypto.KeyAgreement",
-      "allDeclaredConstructors" : true,
-      "allPublicConstructors" : true,
-      "allDeclaredMethods" : true,
-      "allPublicMethods" : true,
-      "allDeclaredFields" : true,
-      "allPublicFields" : true
-    },
-    {
-      "name" : "java.security.KeyFactory",
-      "allDeclaredConstructors" : true,
-      "allPublicConstructors" : true,
-      "allDeclaredMethods" : true,
-      "allPublicMethods" : true,
-      "allDeclaredFields" : true,
-      "allPublicFields" : true
-    },
-    {
-      "name" : "java.security.Signature",
-      "allDeclaredConstructors" : true,
-      "allPublicConstructors" : true,
-      "allDeclaredMethods" : true,
-      "allPublicMethods" : true,
-      "allDeclaredFields" : true,
-      "allPublicFields" : true
-    },    {
-      "name" : "javax.crypto.Mac",
-      "allDeclaredConstructors" : true,
-      "allPublicConstructors" : true,
-      "allDeclaredMethods" : true,
-      "allPublicMethods" : true,
-      "allDeclaredFields" : true,
-      "allPublicFields" : true
     }
   ]
