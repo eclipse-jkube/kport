@@ -5,11 +5,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jkube</groupId>
-  <artifactId>jkube-transporter</artifactId>
+  <artifactId>jkube-kport</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <transporter.version>1.0.0-SNAPSHOT</transporter.version>
+    <kport.version>1.0.0-SNAPSHOT</kport.version>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,16 +25,16 @@
   </properties>
   <modules>
     <module>quarkus-sshd</module>
-    <module>quarkus-transporter</module>
-    <module>transporter-ide-server</module>
-    <module>kubectl-transporter</module>
+    <module>quarkus-kport</module>
+    <module>kport-ide-server</module>
+    <module>kubectl-kport</module>
   </modules>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.eclipse.jkube</groupId>
-        <artifactId>quarkus-transporter</artifactId>
-        <version>${transporter.version}</version>
+        <artifactId>quarkus-kport</artifactId>
+        <version>${kport.version}</version>
       </dependency>
       <dependency>
         <groupId>${quarkus.platform.group-id}</groupId>
