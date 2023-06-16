@@ -1,5 +1,0 @@
-name: quarkus-sshd
-title: Quarkus Apache sshd Quarkus extention
-version: dev
-nav:
-  - modules/ROOT/nav.adoc

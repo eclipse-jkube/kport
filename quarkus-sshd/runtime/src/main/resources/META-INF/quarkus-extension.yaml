@@ -1,9 +1,0 @@
-name: Apache sshd Quarkus extension
-#description: extension for apache sshd
-metadata:
-#  keywords:
-#    - sshd
-#  guide: https://quarkiverse.github.io/quarkiverse-docs/sshd/dev/
-#  categories:
-#    - "miscellaneous"
-#  status: "preview"

@@ -24,7 +24,6 @@
     <consoleui.version>0.0.13</consoleui.version>
   </properties>
   <modules>
-    <module>quarkus-sshd</module>
     <module>quarkus-kport</module>
     <module>kport-ide-server</module>
     <module>kubectl-kport</module>
