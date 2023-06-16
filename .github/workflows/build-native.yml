@@ -1,0 +1,52 @@
+name:  Build native binaries
+on: [pull_request]
+jobs:
+  build:
+    name: Build kubectl-kport and kport-ide-server native binaries on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest,windows-latest,ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.3.2'
+          java-version: '17'
+          components: "native-image"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'false'
+
+      - name: Build All on ${{ matrix.os }}
+        run: |
+          mvn clean install -DskipTests -Dnative
+
+      - name: Upload kubectl for Windows
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubectl-kport-${{ runner.os }}.exe
+          path: kubectl-kport/target/kubectl-kport.exe
+
+      - name: Upload kport-ide-server for Windows
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: kport-ide-server-${{ runner.os }}.exe
+          path: kport-ide-server/target/kport-ide-server.exe
+
+      - name: Upload kubectl
+        if: matrix.os != 'windows-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubectl-kport-${{ runner.os }}
+          path: kubectl-kport/target/kubectl-kport
+
+      - name: Upload kport-ide-server
+        if: matrix.os != 'windows-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: kport-ide-server-${{ runner.os }}
+          path: kport-ide-server/target/kport-ide-server
+
