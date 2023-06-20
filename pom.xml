@@ -23,6 +23,9 @@
     <jansi.version>2.3.4</jansi.version>
     <consoleui.version>0.0.13</consoleui.version>
   </properties>
+  <scm>
+    <developerConnection>scm:git:https://github.com/jkubeio/kport.git</developerConnection>
+  </scm>
   <modules>
     <module>quarkus-kport</module>
     <module>kport-ide-server</module>
