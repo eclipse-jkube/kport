@@ -1,5 +1,5 @@
 # kubectl-kport
-`kubectl-kport` is CLI tool to start the remote-dev. It could be used as a kubectl plugin.
+`kubectl-kport` is CLI tool to start the remote-dev. It could be used as a kubectl plugin. The remote-dev redirects all the traffic, intended to a kubernetes service, to your local application. This feature also redirects the traffic from your local application to the remote services in the cluster.
 
 ## Installation
 Download the `kubectl-kport-YOUROS` binary for your OS from https://github.com/jkubeio/kport/releases. Rename the binary `kubectl-kport` and add it in a directory of your PATH.
