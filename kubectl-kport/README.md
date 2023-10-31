@@ -1,40 +1,41 @@
 # kubectl-kport
-`kubectl-kport` is CLI tool to start the remote-dev. It could be used as a kubectl plugin. The remote-dev redirects all the traffic, intended to a kubernetes service, to your local application. This feature also redirects the traffic from your local application to the remote services in the cluster.
+
+`kubectl-kport` is a CLI tool designed to facilitate remote development. It can be used as a kubectl plugin. This tool redirects all traffic intended for a Kubernetes service to your local application. Additionally, it enables traffic redirection from your local application to services in the remote cluster.
 
 ## Installation
-Download the `kubectl-kport-YOUROS` binary for your OS from https://github.com/jkubeio/kport/releases. Rename the binary `kubectl-kport` and add it in a directory of your PATH.
+To get started, download the `kubectl-kport-YOUROS` binary for your operating system from [this link](https://github.com/jkubeio/kport/releases). Rename the binary to `kubectl-kport` and place it in a directory included in your system's PATH.
 
-The command
+Once done, you should be able to run the command:
 ```
 $ kubectl kport
 ```
-should then be available.
 
-## kubectl kport init
+## Initializing kubectl kport
+To generate the `.kport.yaml` configuration file, use the interactive command:
 ```
 $ kubectl kport init
 ```
-is an interactive command that will help you to generate the `.kport.yaml` configuration file. The configuration will be used for the next command `$ kubectl kport start`.
+This configuration file will be utilized by the subsequent `$ kubectl kport start` command.
 
-## kubectl kport start
+## Starting kubectl kport
+To initiate remote development mode, run:
 ```
 $ kubectl kport start
 ```
-starts the remote-dev mode based on the configuration stored in the`.kport.yaml` file in the current folder.
+This command will use the configuration stored in the `.kport.yaml` file in the current directory.
 
 ## Demo
-It is possible to reuse the [JKube remote-dev Northwind demo](https://github.com/redhat-developer-demos/northwind-traders#remote-dev-demo-walk-through).
-Prepare the demo as indicated.
-In the `northwind` folder, initialize the `.kport.yaml` file with
+You can follow the steps outlined in the [JKube remote-dev Northwind demo](https://github.com/redhat-developer-demos/northwind-traders#remote-dev-demo-walk-through). Make sure to prepare the demo as instructed.
+
+In the `northwind` folder, use the command:
 ```
 $ kubectl kport init
 ```
-providing:
-- a local service `northwind` with the default port
-- the remote service `northwind-db` with the default ports
-- the remote service `rabbitmq` with the custom localPort `15672`
+Provide the following details:
+- A local service named `northwind` with the default port.
+- The remote service `northwind-db` with the default ports.
+- The remote service `rabbitmq` with the custom localPort `15672`.
 
-and saving the file in the current folder.
+Save the file in the current folder.
 
-Then continue the demo flow replacing `mvn oc:remote-dev` with `kubectl kport start`
-
+Continue with the demo, replacing `mvn oc:remote-dev` with `kubectl kport start`. This will ensure that traffic redirection is in effect.
