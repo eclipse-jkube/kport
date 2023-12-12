@@ -32,8 +32,8 @@ enum NextAction {
     ADD_REMOTE_SERVICE(
             "📡 Expose a Remote Service locally",
             "📡 Local traffic to localhost:@|green <localPort>|@ forwarded to @|green <remoteService>|@:@|green <remoteServicePort>|@"),
-    SAVE_LOCAL("🏁 Save in .kube/!!!"),
-    SAVE_PROJECT("🏁 Save in [current folder]/.kport.yaml!!!"),
+    SAVE_LOCAL("🏁 Save in ~/.kube/kubectl-kport.yaml"),
+    SAVE_PROJECT("🏁 Save in [currentDir]/.kport.yaml"),
     QUIT_WO_SAVING("🚫 Quit without saving");
 
     private String label;
