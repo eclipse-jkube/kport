@@ -1,0 +1,68 @@
+name: "[PR] Build native binaries"
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+jobs:
+  build:
+    name: Build kubectl-kport and kport-ide-server native binaries on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest,windows-2022,ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.3.2'
+          java-version: '17'
+          components: "native-image"
+          github-token: ${{ github.token }}
+          native-image-job-reports: 'false'
+
+      - name: Build All on ${{ matrix.os }}
+        run: |
+          mvn clean install -DskipTests -Dnative
+
+      - name: Upload kubectl for Windows
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          name: kubectl-kport-${{ runner.os }}.exe
+          path: kubectl-kport/target/kubectl-kport.exe
+          retention-days: 1
+
+      - name: Upload kport-ide-server for Windows
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          name: kport-ide-server-${{ runner.os }}.exe
+          path: kport-ide-server/target/kport-ide-server.exe
+          retention-days: 1
+
+      - name: Upload kubectl
+        if: matrix.os != 'windows-latest'
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          name: kubectl-kport-${{ runner.os }}
+          path: kubectl-kport/target/kubectl-kport
+          retention-days: 1
+
+      - name: Upload kport-ide-server
+        if: matrix.os != 'windows-latest'
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          name: kport-ide-server-${{ runner.os }}
+          path: kport-ide-server/target/kport-ide-server
+          retention-days: 1
+
