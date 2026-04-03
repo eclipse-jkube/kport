@@ -12,12 +12,25 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: kport
+
+      - uses: actions/checkout@v3
+        with:
+          repository: quarkiverse/quarkus-sshd
+          path: quarkus-sshd
 
       - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Build quarkus-sshd (SNAPSHOT)
+        working-directory: quarkus-sshd
+        run: |
+          mvn install -DskipTests
+
       - name: Build All (JVM)
+        working-directory: kport
         run: |
           mvn clean install -DskipTests
