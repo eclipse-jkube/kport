@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: write
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest,windows-latest,ubuntu-latest]
     steps:
@@ -23,7 +24,7 @@ jobs:
 
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '17'
+          java-version: '24'
           distribution: 'graalvm-community'
           github-token: ${{ github.token }}
           native-image-job-reports: 'false'
