@@ -12,11 +12,11 @@ jobs:
       matrix:
         os: [macos-latest,windows-latest,ubuntu-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: kport
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: quarkiverse/quarkus-sshd
           path: quarkus-sshd
@@ -41,7 +41,7 @@ jobs:
 
       - name: Upload kubectl for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -51,7 +51,7 @@ jobs:
 
       - name: Upload kport-ide-server for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload kubectl
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload kport-ide-server
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
