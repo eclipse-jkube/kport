@@ -43,6 +43,15 @@ Quarkus platform version is declared in `pom.xml`:
 This version **must stay aligned with the Quarkus version used by the quarkus-sshd trunk**.  
 Check the quarkus-sshd `pom.xml` (`<quarkus.version>`) before changing it.
 
+## JKube kit version
+
+`jkube-kit-remote-dev` version is declared in `pom.xml` `<dependencyManagement>`:
+```xml
+<artifactId>jkube-kit-remote-dev</artifactId>
+<version>1.19.0</version>
+```
+Keep this in sync with the latest JKube release: https://github.com/eclipse-jkube/jkube/releases
+
 ## Jakarta EE migration (Quarkus 3.x)
 
 This project uses **Quarkus 3.x** which requires `jakarta.*` imports (not `javax.*`).  
