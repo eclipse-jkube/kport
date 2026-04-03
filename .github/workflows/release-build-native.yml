@@ -13,16 +13,28 @@ jobs:
         os: [macos-latest,windows-latest,ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: kport
+
+      - uses: actions/checkout@v4
+        with:
+          repository: quarkiverse/quarkus-sshd
+          path: quarkus-sshd
 
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.3.2'
           java-version: '17'
-          components: "native-image"
+          distribution: 'graalvm-community'
           github-token: ${{ github.token }}
           native-image-job-reports: 'false'
 
+      - name: Build quarkus-sshd (SNAPSHOT)
+        working-directory: quarkus-sshd
+        run: |
+          mvn install -DskipTests
+
       - name: Build All on ${{ matrix.os }}
+        working-directory: kport
         run: |
           mvn clean install -DskipTests -Dnative
 
@@ -30,23 +42,23 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: softprops/action-gh-release@v2
         with:
-          files: kubectl-kport/target/kubectl-kport.exe#kubectl-kport-${{ runner.os }}.exe
+          files: kport/kubectl-kport/target/kubectl-kport.exe#kubectl-kport-${{ runner.os }}.exe
 
       - name: Upload kport-ide-server for Windows
         if: matrix.os == 'windows-latest'
         uses: softprops/action-gh-release@v2
         with:
-          files: kport-ide-server/target/kport-ide-server.exe#kport-ide-server-${{ runner.os }}.exe
+          files: kport/kport-ide-server/target/kport-ide-server.exe#kport-ide-server-${{ runner.os }}.exe
       
       - name: Upload kubectl
         if: matrix.os != 'windows-latest'
         uses: softprops/action-gh-release@v2
         with:
-          files: kubectl-kport/target/kubectl-kport#kubectl-kport-${{ runner.os }}
+          files: kport/kubectl-kport/target/kubectl-kport#kubectl-kport-${{ runner.os }}
 
       - name: Upload kport-ide-server
         if: matrix.os != 'windows-latest'
         uses: softprops/action-gh-release@v2
         with:
-          files: kport-ide-server/target/kport-ide-server#kport-ide-server-${{ runner.os }}
+          files: kport/kport-ide-server/target/kport-ide-server#kport-ide-server-${{ runner.os }}
 
