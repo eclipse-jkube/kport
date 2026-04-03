@@ -1,7 +1,7 @@
 package org.eclipse.jkube.kport;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
 import org.jboss.logging.Logger;
 import org.eclipse.jkube.kit.common.KitLogger;
 

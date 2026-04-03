@@ -1,8 +1,8 @@
 package org.eclipse.jkube.kport;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 
 import io.quarkus.runtime.ShutdownEvent;
 import org.eclipse.jkube.kit.common.KitLogger;
