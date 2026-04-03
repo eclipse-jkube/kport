@@ -13,6 +13,13 @@ jobs:
         os: [macos-latest,windows-latest,ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: kport
+
+      - uses: actions/checkout@v3
+        with:
+          repository: quarkiverse/quarkus-sshd
+          path: quarkus-sshd
 
       - uses: graalvm/setup-graalvm@v1
         with:
@@ -22,47 +29,53 @@ jobs:
           github-token: ${{ github.token }}
           native-image-job-reports: 'false'
 
+      - name: Build quarkus-sshd (SNAPSHOT)
+        working-directory: quarkus-sshd
+        run: |
+          mvn install -DskipTests
+
       - name: Build All on ${{ matrix.os }}
+        working-directory: kport
         run: |
           mvn clean install -DskipTests -Dnative
 
       - name: Upload kubectl for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           name: kubectl-kport-${{ runner.os }}.exe
-          path: kubectl-kport/target/kubectl-kport.exe
+          path: kport/kubectl-kport/target/kubectl-kport.exe
           retention-days: 1
 
       - name: Upload kport-ide-server for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           name: kport-ide-server-${{ runner.os }}.exe
-          path: kport-ide-server/target/kport-ide-server.exe
+          path: kport/kport-ide-server/target/kport-ide-server.exe
           retention-days: 1
 
       - name: Upload kubectl
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           name: kubectl-kport-${{ runner.os }}
-          path: kubectl-kport/target/kubectl-kport
+          path: kport/kubectl-kport/target/kubectl-kport
           retention-days: 1
 
       - name: Upload kport-ide-server
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           name: kport-ide-server-${{ runner.os }}
-          path: kport-ide-server/target/kport-ide-server
+          path: kport/kport-ide-server/target/kport-ide-server
           retention-days: 1
 

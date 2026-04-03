@@ -1,5 +1,5 @@
 package org.eclipse.jkube.kport.commands;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.jkube.kport.KportService;
 
