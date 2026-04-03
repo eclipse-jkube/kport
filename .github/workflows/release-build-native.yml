@@ -6,11 +6,13 @@ jobs:
   build:
     name: Build kubectl-kport and kport-ide-server native binaries on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     strategy:
       matrix:
         os: [macos-latest,windows-latest,ubuntu-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: graalvm/setup-graalvm@v1
         with:
@@ -26,45 +28,25 @@ jobs:
 
       - name: Upload kubectl for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: kubectl-kport/target/kubectl-kport.exe 
-          asset_name: kubectl-kport-${{ runner.os }}.exe
-          asset_content_type: application/octet-stream
+          files: kubectl-kport/target/kubectl-kport.exe#kubectl-kport-${{ runner.os }}.exe
 
       - name: Upload kport-ide-server for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path:  kport-ide-server/target/kport-ide-server.exe 
-          asset_name: kport-ide-server-${{ runner.os }}.exe
-          asset_content_type: application/octet-stream
+          files: kport-ide-server/target/kport-ide-server.exe#kport-ide-server-${{ runner.os }}.exe
       
       - name: Upload kubectl
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: kubectl-kport/target/kubectl-kport
-          asset_name: kubectl-kport-${{ runner.os }}
-          asset_content_type: application/octet-stream
+          files: kubectl-kport/target/kubectl-kport#kubectl-kport-${{ runner.os }}
 
       - name: Upload kport-ide-server
         if: matrix.os != 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: kport-ide-server/target/kport-ide-server
-          asset_name: kport-ide-server-${{ runner.os }}
-          asset_content_type: application/octet-stream
+          files: kport-ide-server/target/kport-ide-server#kport-ide-server-${{ runner.os }}
 
