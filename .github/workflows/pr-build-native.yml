@@ -79,3 +79,44 @@ jobs:
           path: kport/kport-ide-server/target/kport-ide-server
           retention-days: 1
 
+  comment:
+    name: Post artifact links comment on PR
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment on PR with artifact links
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = `## 📦 Native binaries available\n\nThe native binaries for this PR have been built and are available for download:\n\n➡️ [Download artifacts from this Actions run](${runUrl})\n\nArtifacts expire after 1 day.`;
+            const marker = '<!-- kport-artifact-comment -->';
+            const markedBody = `${marker}\n${body}`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: markedBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: markedBody,
+              });
+            }
+
