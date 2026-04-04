@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+      pull-requests: write
     if: ${{ github.event.issue.pull_request != null && (contains(github.event.comment.body, '/build-native-linux') || contains(github.event.comment.body, '/build-native-mac') || contains(github.event.comment.body, '/build-native-windows')) }}
     outputs:
       comment_id: ${{ steps.post-comment.outputs.comment_id }}
@@ -236,6 +237,7 @@ jobs:
     if: ${{ always() && needs.notify-start.result == 'success' }}
     permissions:
       issues: write
+      pull-requests: write
     steps:
       - name: Update comment with build results
         uses: actions/github-script@v7
