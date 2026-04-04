@@ -21,8 +21,11 @@ import de.codeshelf.consoleui.prompt.ListResult;
 import de.codeshelf.consoleui.prompt.PromtResultItemIF;
 import de.codeshelf.consoleui.prompt.builder.ListPromptBuilder;
 import de.codeshelf.consoleui.prompt.builder.PromptBuilder;
+import io.fabric8.kubernetes.api.model.Context;
+import io.fabric8.kubernetes.api.model.NamedContext;
 import io.fabric8.kubernetes.api.model.ServicePort;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.kubernetes.client.KubernetesClientException;
 
 enum NextAction {
 
@@ -71,14 +74,34 @@ public class InitCommand implements Runnable {
 
     @Override
     public void run() {
-        printText("🌀 Configuring the Kube kport for\n"
-                + "\t- cluster: @|green " + kubeclient.getConfiguration().getCurrentContext().getContext().getCluster()
-                + "|@\n"
-                + "\t- namespace: @|green "
-                + kubeclient.getConfiguration().getCurrentContext().getContext().getNamespace() + "|@\n");
+        NamedContext currentContext = kubeclient.getConfiguration().getCurrentContext();
+        Context context = currentContext != null ? currentContext.getContext() : null;
+        String cluster = context != null && context.getCluster() != null && !context.getCluster().isBlank()
+                ? context.getCluster()
+                : null;
+        String namespace = context != null && context.getNamespace() != null && !context.getNamespace().isBlank()
+                ? context.getNamespace()
+                : "<not configured>";
 
-        if (kubeclient.services().list().getItems().isEmpty()) {
-            text("🚫 No remote service detected.");
+        if (cluster == null) {
+            printText("@|red 🚫 No Kubernetes cluster configured.|@\n"
+                    + "Please configure kubectl (e.g. @|yellow kubectl config set-cluster|@) and try again.");
+            return;
+        }
+
+        printText("🌀 Configuring the Kube kport for\n"
+                + "\t- cluster: @|green " + cluster + "|@\n"
+                + "\t- namespace: @|green " + namespace + "|@\n");
+
+        try {
+            if (kubeclient.services().list().getItems().isEmpty()) {
+                printText("🚫 No remote service detected.");
+                return;
+            }
+        } catch (KubernetesClientException e) {
+            printText("@|red 🚫 Unable to connect to the Kubernetes cluster '@|yellow " + cluster + "@|red '.|@\n"
+                    + "Please check your kubeconfig and cluster connectivity.\n"
+                    + "@|faint Reason: " + e.getMessage() + "|@");
             return;
         }
 
